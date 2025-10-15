@@ -14,13 +14,29 @@
             background-image: url('https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/bg-texture.png');
             background-color: #588734; background-repeat: repeat; font-family: 'Press Start 2P', cursive;
             color: #FFFFFF; text-shadow: 2px 2px 2px #333333; margin: 0; padding: 40px 20px;
-            display: flex; justify-content: center; align-items: flex-start; /* Aligns to top on long pages */
+            display: flex; justify-content: center; align-items: flex-start;
             min-height: 100vh; text-align: center;
         }
         .container { max-width: 800px; width: 100%; }
         h1 { font-size: 3em; color: #FFAA00; text-shadow: 3px 3px 0 #3E3E3E; margin-bottom: 0; }
         h2 { font-size: 1.8em; margin-top: 10px; }
         p { font-size: 1em; line-height: 1.5; max-width: 600px; margin: 20px auto; }
+
+        /* --- NEW: Subtle Animations --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animated {
+            opacity: 0; /* Start hidden */
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        /* Stagger the animations */
+        h1.animated { animation-delay: 0.1s; }
+        h2.animated { animation-delay: 0.2s; }
+        p.animated { animation-delay: 0.3s; }
+        .button-container.animated { animation-delay: 0.4s; }
+        .player-list-section.animated { animation-delay: 0.5s; }
 
         /* --- Button Container --- */
         .button-container { display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap; }
@@ -34,28 +50,15 @@
         .mc-button:active { transform: translateY(2px); box-shadow: inset -2px -2px 0px 0px #585858, inset 2px 2px 0px 0px #A0A0A0; }
 
         /* --- Player List Styles --- */
-        .player-list-section {
-            margin-top: 60px; background-color: rgba(0, 0, 0, 0.2); padding: 20px;
-            border: 4px solid #373737; box-shadow: inset 0 0 10px #000;
-        }
-        .player-grid {
-            display: grid;
-            /* Improved grid for mobile */
-            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
+        .player-list-section { margin-top: 60px; background-color: rgba(0, 0, 0, 0.2); padding: 20px; border: 4px solid #373737; box-shadow: inset 0 0 10px #000; }
+        .player-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 15px; margin-top: 20px; }
         .player-card { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .player-card img {
-            width: 64px; height: 64px; image-rendering: pixelated; /* Keeps skin sharp */
-            border: 3px solid #585858;
-        }
+        .player-card img { width: 64px; height: 64px; image-rendering: pixelated; border: 3px solid #585858; }
         .player-card p { font-size: 0.8em; margin: 0; line-height: 1.2; word-break: break-all; }
 
         /* --- Modal (Pop-up Box) Styles --- */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); padding-top: 20px; }
         .modal-content { background-color: #C6C6C6; margin: 5% auto; padding: 25px; border: 4px solid #585858; box-shadow: inset 0 0 0 4px #FFFFFF; width: 90%; max-width: 600px; position: relative; text-align: left; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
         .close-button { color: #E0E0E0; background-color: #C23333; border: 3px solid #373737; box-shadow: inset -2px -2px 0px 0px #8B2424, inset 2px 2px 0px 0px #E06464; position: absolute; top: 10px; right: 15px; font-size: 28px; font-weight: bold; width: 30px; height: 30px; line-height: 28px; text-align: center; cursor: pointer; }
         #whitelist-form label { display: block; margin: 15px 0 5px 0; color: #3E3E3E; font-size: 0.9em; text-shadow: none; }
         #whitelist-form input[type="text"], #whitelist-form textarea { width: calc(100% - 28px); padding: 10px; font-family: 'Press Start 2P', cursive; background-color: #8B8B8B; border: 4px solid #373737; box-shadow: inset 2px 2px 0px #585858; color: #FFFFFF; font-size: 0.8em; }
@@ -68,48 +71,36 @@
         .form-message { display: none; padding: 10px; margin-bottom: 15px; border: 3px solid #373737; font-size: 0.8em; text-shadow: 1px 1px #3E3E3E; text-align: center; }
         .success-message { background-color: #58A758; box-shadow: inset -2px -2px 0px 0px #346434, inset 2px 2px 0px 0px #88D988; color: #FFFFFF; }
         .error-message { background-color: #C23333; box-shadow: inset -2px -2px 0px 0px #8B2424, inset 2px 2px 0px 0px #E06464; color: #FFFFFF; }
-        
-        /* --- Mobile Friendly Adjustments --- */
-        @media (max-width: 768px) {
-            body { padding: 20px 10px; }
-            h1 { font-size: 2.2em; }
-            h2 { font-size: 1.5em; }
-            p { font-size: 0.9em; }
-            .button-container { flex-direction: column; align-items: center; gap: 15px; }
-            .mc-button { font-size: 1em; width: 90%; max-width: 350px; }
-            .modal-content { width: 95%; padding: 20px 15px; margin: 20px auto; }
-            .player-list-section { padding: 15px; }
-            .player-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
-        }
+        @media (max-width: 768px) { body { padding: 20px 10px; } h1 { font-size: 2.2em; } h2 { font-size: 1.5em; } p { font-size: 0.9em; } .button-container { flex-direction: column; align-items: center; gap: 15px; } .mc-button { font-size: 1em; width: 90%; max-width: 350px; } .modal-content { width: 95%; padding: 20px 15px; margin: 20px auto; } .player-list-section { padding: 15px; } .player-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; } }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Eldoriaa Server</h1>
-        <h2>Whitelist Application</h2>
-        <p>Ready to join the adventure? Fill out our application to get on the whitelist. We're excited to see you in-game!</p>
+        <!-- Add the "animated" class to elements you want to fade in -->
+        <h1 class="animated">Eldoriaa Server</h1>
+        <h2 class="animated">Whitelist Application</h2>
+        <p class="animated">Ready to join the adventure? Fill out our application to get on the whitelist. We're excited to see you in-game!</p>
         
-        <div class="button-container">
+        <div class="button-container animated">
             <button id="open-modal-btn" class="mc-button">Apply For Whitelist</button>
-            <!-- Discord link is now permanent -->
             <a href="https://discord.gg/qBqTFWuShD" target="_blank" class="mc-button">Discord Server</a>
+            <!-- NEW: Copy IP Button -->
+            <button id="copy-ip-btn" class="mc-button">Copy Server IP</button>
         </div>
 
-        <div class="player-list-section">
+        <div class="player-list-section animated">
             <h2>Our Whitelisted Players</h2>
-            <div id="player-grid-container" class="player-grid">
-                <!-- Player cards will be generated by JavaScript here -->
-            </div>
+            <div id="player-grid-container" class="player-grid"></div>
         </div>
     </div>
 
+    <!-- The Modal remains the same -->
     <div id="application-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h2 style="color: #3E3E3E; text-shadow: none; margin-top: 0; font-size: 1.5em;">Application Form</h2>
             <form id="whitelist-form">
-                <!-- Form inputs remain the same -->
                 <label for="play-time">How long have you been playing Minecraft? *</label>
                 <input type="text" id="play-time" name="play-time" required>
                 <label>What type of a Player Are you? *</label>
@@ -135,18 +126,53 @@
             </form>
         </div>
     </div>
+    
+    <!-- NEW: Sound Effect Element -->
+    <audio id="click-sound" src="https://www.myinstants.com/media/sounds/minecraft-click.mp3" preload="auto"></audio>
 
     <script>
-        // Webhook URL is now permanent
         const webhookURL = "https://discord.com/api/webhooks/1182915455183233044/revXXoJdQMLH3CxnKfIpn_LkYeFM4sshMyxruRO8W9qbzB9vrHd9FA796zlT-bARJWES";
-
         const modal = document.getElementById("application-modal");
         const openBtn = document.getElementById("open-modal-btn");
         const closeBtn = document.querySelector(".close-button");
         const form = document.getElementById("whitelist-form");
         const messageEl = document.getElementById("form-message");
 
-        // Generate Player List on Page Load
+        // --- NEW: Sound Effect Logic ---
+        const clickSound = document.getElementById('click-sound');
+        // This includes all buttons on the page now, even the new ones
+        document.querySelectorAll('.mc-button, .close-button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                clickSound.currentTime = 0; // Rewind to the start
+                clickSound.volume = 0.5; // Lower volume a bit
+                clickSound.play();
+            });
+        });
+        
+        // --- NEW: Copy IP Button Logic ---
+        const copyIpBtn = document.getElementById('copy-ip-btn');
+        const serverIP = 'play.eldoriaa.com'; // <-- IMPORTANT: SET YOUR SERVER IP HERE
+
+        copyIpBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(serverIP).then(() => {
+                const originalText = copyIpBtn.textContent;
+                copyIpBtn.textContent = 'IP Copied!';
+                copyIpBtn.style.backgroundColor = '#58A758'; // Green feedback
+                setTimeout(() => {
+                    copyIpBtn.textContent = originalText;
+                    copyIpBtn.style.backgroundColor = ''; // Revert color
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy IP: ', err);
+                const originalText = copyIpBtn.textContent;
+                copyIpBtn.textContent = 'Error!';
+                setTimeout(() => {
+                    copyIpBtn.textContent = originalText;
+                }, 2000);
+            });
+        });
+
+        // --- Existing Logic (Unchanged) ---
         document.addEventListener('DOMContentLoaded', () => {
             const playerGrid = document.getElementById('player-grid-container');
             if (typeof whitelistedPlayers !== 'undefined' && whitelistedPlayers.length > 0) {
@@ -167,7 +193,6 @@
             }
         });
 
-        // Application Form Logic
         openBtn.onclick = function() { modal.style.display = "block"; }
         closeBtn.onclick = function() { modal.style.display = "none"; }
         window.onclick = function(event) { if (event.target == modal) { modal.style.display = "none"; } }
@@ -235,3 +260,4 @@
     </script>
 </body>
 </html>
+
