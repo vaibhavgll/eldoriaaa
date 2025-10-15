@@ -236,72 +236,51 @@
             });
             // --- END OF NEW UI LOGIC ---
 
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+  statusMessage.classList.add('hidden');
 
-                // !!! IMPORTANT: PASTE YOUR WEBHOOK URL HERE !!!
-                const webhookUrl = "https://discord.com/api/webhooks/1182915455183233044/revXXoJdQMLH3CxnKfIpn_LkYeFM4sshMyxruRO8W9qbzB9vrHd9FA796zlT-bARJWES";
+  const formData = new FormData(form);
+  const payload = {
+    mcUsername: formData.get('mcUsername'),
+    timezone: formData.get('timezone'),
+    playerType: formData.get('playerType'),
+    playTime: formData.get('playTime'),
+    serverActivities: formData.get('serverActivities'),
+    buildProject: formData.get('buildProject')
+  };
 
-                if (webhookUrl === "https://discord.com/api/webhooks/1182915455183233044/revXXoJdQMLH3CxnKfIpn_LkYeFM4sshMyxruRO8W9qbzB9vrHd9FA796zlT-bARJWES") {
-                    statusMessage.textContent = "Error: Webhook URL is not set in the script!";
-                    statusMessage.className = 'error';
-                    statusMessage.classList.remove('hidden');
-                    return;
-                }
+  try {
+    const response = await fetch('/api/sendWebhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
 
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Submitting...';
-                statusMessage.classList.add('hidden');
+    const result = await response.json();
+    if (response.ok) {
+      statusMessage.textContent = result.message;
+      statusMessage.className = 'success';
+      form.reset();
+      playerTypeOptions.forEach(opt => opt.classList.remove('selected'));
+    } else {
+      statusMessage.textContent = result.error || 'Failed to send application';
+      statusMessage.className = 'error';
+    }
 
-                const formData = new FormData(form);
-                const playerType = formData.get('playerType');
+  } catch (error) {
+    console.error(error);
+    statusMessage.textContent = 'Network error. Try again.';
+    statusMessage.className = 'error';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Apply for Whitelist';
+    statusMessage.classList.remove('hidden');
+  }
+});
 
-                const payload = {
-                    embeds: [{
-                        title: "New Whitelist Application",
-                        color: 5814783,
-                        timestamp: new Date().toISOString(),
-                        footer: {
-                            text: `Submitted by ${formData.get('mcUsername')}`
-                        },
-                        fields: [
-                            { name: "Minecraft Username", value: formData.get('mcUsername'), inline: true },
-                            { name: "Time Zone (GMT)", value: formData.get('timezone'), inline: true },
-                            { name: "Player Type", value: playerType || 'Not specified', inline: false },
-                            { name: "How long have they been playing?", value: formData.get('playTime'), inline: false },
-                            { name: "What do they like to do on servers?", value: formData.get('serverActivities'), inline: false },
-                            { name: "Describe a decent build project:", value: formData.get('buildProject'), inline: false },
-                        ]
-                    }]
-                };
-
-                try {
-                    const response = await fetch(webhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload),
-                    });
-
-                    if (response.ok) {
-                        statusMessage.textContent = 'Application sent successfully!';
-                        statusMessage.className = 'success';
-                        form.reset();
-                        // Clear selection style on reset
-                        playerTypeOptions.forEach(opt => opt.classList.remove('selected'));
-                    } else {
-                        statusMessage.textContent = `Error: ${response.status}. Could not send application.`;
-                        statusMessage.className = 'error';
-                    }
-                } catch (error) {
-                    console.error('Fetch Error:', error);
-                    statusMessage.textContent = 'A network error occurred. Please try again.';
-                    statusMessage.className = 'error';
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Apply for Whitelist';
-                    statusMessage.classList.remove('hidden');
-                }
-            });
         });
     </script>
 </body>
