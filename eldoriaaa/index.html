@@ -324,9 +324,10 @@
             submitButton.textContent = "Sending...";
             submitButton.disabled = true;
 
-            // Get form data
+  // Get form data
             const formData = new FormData(form);
             const username = formData.get('mc-username');
+            const discordId = formData.get('discord-id'); // <-- NEW
             const playerType = formData.get('player-type');
             
             // Construct the Discord embed message
@@ -335,9 +336,14 @@
                 color: 5814783, // A nice Minecraft blue color
                 author: {
                     name: username,
-                    icon_url: `https://minotar.net/avatar/${username}/64.png` // Fetches player's skin head
+                    icon_url: `https://minotar.net/avatar/${username}/64.png`
+                },
+                // NEW THUMBNAIL PROPERTY
+                thumbnail: {
+                    url: `https://minotar.net/helm/${username}/128.png` // Larger skin head for thumbnail
                 },
                 fields: [
+                    { name: "⭐ Discord User", value: `<@${discordId}>` }, // <-- NEW & IMPROVED
                     { name: "How long have you been playing Minecraft?", value: formData.get('play-time') || "Not answered" },
                     { name: "What type of a Player are you?", value: playerType || "Not answered" },
                     { name: "What's a decent build project you've made?", value: formData.get('build-project') || "Not answered" },
