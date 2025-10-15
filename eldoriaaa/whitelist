@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Whitelist Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/bg-texture.png');
+            background-repeat: repeat;
+            background-color: #3f3f3f;
+            font-family: 'Press Start 2P', cursive;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.75);
+            border: 4px solid #5a5a5a;
+            box-shadow: inset 0 0 0 4px #2b2b2b;
+            padding: 2rem;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            text-align: center;
+            color: #FFAA00;
+            text-shadow: 2px 2px #3E3E3E;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 0.8rem;
+            color: #AAAAAA;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label, legend {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            background-color: #313131;
+            border: 3px solid #000000;
+            box-shadow: inset 2px 2px 0px #222222;
+            color: #FFFFFF;
+            font-family: 'Press Start 2P', cursive;
+            padding: 12px;
+            font-size: 0.8rem;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus {
+            outline: 2px solid #FFAA00;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        /* --- NEW INTERACTIVE PLAYER TYPE UI STYLES --- */
+        .player-type-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .player-type-option {
+            background-color: #313131;
+            border: 3px solid #000;
+            box-shadow: inset 2px 2px 0px #222222;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            font-size: 0.8rem;
+        }
+        
+        .player-type-option:hover {
+            background-color: #4f4f4f;
+        }
+
+        /* This is the 'selected' state */
+        .player-type-option.selected {
+            background-color: #5a5a5a;
+            border-color: #FFAA00;
+            color: #FFAA00;
+            box-shadow: inset 0 0 8px #FFAA0050;
+        }
+
+        .player-type-option input[type="radio"] {
+            display: none; /* Hide the actual radio button */
+        }
+        /* --- END OF NEW STYLES --- */
+
+        button {
+            width: 100%;
+            padding: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: #E0E0E0;
+            text-shadow: 2px 2px #000000a0;
+            background-color: #787878;
+            border: 3px solid #2b2b2b;
+            box-shadow: inset -4px -4px 0px 0px #5a5a5a;
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #8a8a8a;
+        }
+
+        button:active {
+            background-color: #5a5a5a;
+            box-shadow: inset 4px 4px 0px 0px #5a5a5a;
+            transform: translateY(2px);
+        }
+
+        button:disabled {
+            background-color: #4f4f4f;
+            color: #9e9e9e;
+            cursor: not-allowed;
+            box-shadow: inset -4px -4px 0px 0px #3a3a3a;
+        }
+
+        #status-message {
+            text-align: center;
+            margin-top: 1rem;
+            padding: 10px;
+            font-size: 0.8rem;
+        }
+
+        .success { color: #55FF55; border: 2px solid #55FF55; }
+        .error { color: #FF5555; border: 2px solid #FF5555; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Whitelist Application</h1>
+        <p class="subtitle">Join our Minecraft Server!</p>
+        
+        <form id="whitelist-form">
+            
+            <div class="form-group">
+                <label for="play-time">How long have you been playing Minecraft?*</label>
+                <input type="text" id="play-time" name="playTime" required>
+            </div>
+
+            <div class="form-group">
+                <legend>What type of a Player Are you?*</legend>
+                <div class="player-type-selector" id="player-type-container">
+                    <label class="player-type-option">
+                        <input type="radio" name="playerType" value="Builder" required> Builder
+                    </label>
+                    <label class="player-type-option">
+                        <input type="radio" name="playerType" value="Redstoner"> Redstoner
+                    </label>
+                     <label class="player-type-option">
+                        <input type="radio" name="playerType" value="Explorer"> Explorer
+                    </label>
+                    <label class="player-type-option">
+                        <input type="radio" name="playerType" value="A Lil Bit of this, A Lil Bit of that"> A Lil Bit of this...
+                    </label>
+                    <label class="player-type-option">
+                        <input type="radio" name="playerType" value="PvP"> PvP
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mc-username">What's your Minecraft Username?*</label>
+                <input type="text" id="mc-username" name="mcUsername" required>
+            </div>
+
+            <div class="form-group">
+                <label for="build-project">What's a decent build project you've made? (Description is enough)*</label>
+                <textarea id="build-project" name="buildProject" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="server-activities">What do you usually like to do on servers?*</label>
+                <textarea id="server-activities" name="serverActivities" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="timezone">What is Your time zone in GMT?*</label>
+                <input type="text" id="timezone" name="timezone" placeholder="e.g., GMT+5:30 or GMT-8" required>
+            </div>
+
+            <button type="submit" id="submit-btn">Apply for Whitelist</button>
+            
+            <p id="status-message" class="hidden"></p>
+
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('whitelist-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const statusMessage = document.getElementById('status-message');
+
+            // --- NEW: Player Type UI Logic ---
+            const playerTypeContainer = document.getElementById('player-type-container');
+            const playerTypeOptions = playerTypeContainer.querySelectorAll('.player-type-option');
+
+            playerTypeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove 'selected' from all other options
+                    playerTypeOptions.forEach(opt => opt.classList.remove('selected'));
+                    // Add 'selected' to the clicked option
+                    option.classList.add('selected');
+                });
+            });
+            // --- END OF NEW UI LOGIC ---
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // !!! IMPORTANT: PASTE YOUR WEBHOOK URL HERE !!!
+                const webhookUrl = "YOUR_WEBHOOK_URL_HERE";
+
+                if (webhookUrl === "YOUR_WEBHOOK_URL_HERE") {
+                    statusMessage.textContent = "Error: Webhook URL is not set in the script!";
+                    statusMessage.className = 'error';
+                    statusMessage.classList.remove('hidden');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                statusMessage.classList.add('hidden');
+
+                const formData = new FormData(form);
+                const playerType = formData.get('playerType');
+
+                const payload = {
+                    embeds: [{
+                        title: "New Whitelist Application",
+                        color: 5814783,
+                        timestamp: new Date().toISOString(),
+                        footer: {
+                            text: `Submitted by ${formData.get('mcUsername')}`
+                        },
+                        fields: [
+                            { name: "Minecraft Username", value: formData.get('mcUsername'), inline: true },
+                            { name: "Time Zone (GMT)", value: formData.get('timezone'), inline: true },
+                            { name: "Player Type", value: playerType || 'Not specified', inline: false },
+                            { name: "How long have they been playing?", value: formData.get('playTime'), inline: false },
+                            { name: "What do they like to do on servers?", value: formData.get('serverActivities'), inline: false },
+                            { name: "Describe a decent build project:", value: formData.get('buildProject'), inline: false },
+                        ]
+                    }]
+                };
+
+                try {
+                    const response = await fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    });
+
+                    if (response.ok) {
+                        statusMessage.textContent = 'Application sent successfully!';
+                        statusMessage.className = 'success';
+                        form.reset();
+                        // Clear selection style on reset
+                        playerTypeOptions.forEach(opt => opt.classList.remove('selected'));
+                    } else {
+                        statusMessage.textContent = `Error: ${response.status}. Could not send application.`;
+                        statusMessage.className = 'error';
+                    }
+                } catch (error) {
+                    console.error('Fetch Error:', error);
+                    statusMessage.textContent = 'A network error occurred. Please try again.';
+                    statusMessage.className = 'error';
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Apply for Whitelist';
+                    statusMessage.classList.remove('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
