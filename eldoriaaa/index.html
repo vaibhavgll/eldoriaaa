@@ -22,7 +22,7 @@
         h2 { font-size: 1.8em; margin-top: 10px; }
         p { font-size: 1em; line-height: 1.5; max-width: 600px; margin: 20px auto; }
 
-        /* --- NEW: Subtle Animations --- */
+        /* --- Subtle Animations --- */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -31,7 +31,6 @@
             opacity: 0; /* Start hidden */
             animation: fadeInUp 0.8s ease-out forwards;
         }
-        /* Stagger the animations */
         h1.animated { animation-delay: 0.1s; }
         h2.animated { animation-delay: 0.2s; }
         p.animated { animation-delay: 0.3s; }
@@ -71,7 +70,42 @@
         .form-message { display: none; padding: 10px; margin-bottom: 15px; border: 3px solid #373737; font-size: 0.8em; text-shadow: 1px 1px #3E3E3E; text-align: center; }
         .success-message { background-color: #58A758; box-shadow: inset -2px -2px 0px 0px #346434, inset 2px 2px 0px 0px #88D988; color: #FFFFFF; }
         .error-message { background-color: #C23333; box-shadow: inset -2px -2px 0px 0px #8B2424, inset 2px 2px 0px 0px #E06464; color: #FFFFFF; }
-        @media (max-width: 768px) { body { padding: 20px 10px; } h1 { font-size: 2.2em; } h2 { font-size: 1.5em; } p { font-size: 0.9em; } .button-container { flex-direction: column; align-items: center; gap: 15px; } .mc-button { font-size: 1em; width: 90%; max-width: 350px; } .modal-content { width: 95%; padding: 20px 15px; margin: 20px auto; } .player-list-section { padding: 15px; } .player-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; } }
+        
+        /* --- Mobile Friendly Adjustments --- */
+        @media (max-width: 768px) {
+            body { padding: 20px 10px; }
+            h1 { font-size: 2.0em; }
+            h2 { font-size: 1.4em; }
+            .player-list-section h2 { font-size: 1.2em; }
+            p { font-size: 0.85em; }
+
+            .button-container { flex-direction: column; align-items: center; gap: 15px; }
+            .mc-button {
+                font-size: 1em;
+                padding: 12px 24px;
+                width: 90%;
+                max-width: 350px;
+            }
+
+            /* Form specific mobile improvements */
+            .modal-content {
+                width: 95%;
+                padding: 20px 15px;
+                margin: 20px auto;
+                max-height: 85vh; /* Allow scrolling on short screens */
+                overflow-y: auto;
+            }
+            .modal-content h2 { font-size: 1.2em; }
+            #whitelist-form label { font-size: 0.8em; }
+            #whitelist-form input[type="text"],
+            #whitelist-form textarea,
+            .radio-group label {
+                font-size: 0.7em;
+            }
+
+            .player-list-section { padding: 15px; }
+            .player-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -138,18 +172,17 @@
         const form = document.getElementById("whitelist-form");
         const messageEl = document.getElementById("form-message");
 
-        // --- NEW: Sound Effect Logic ---
+        // --- Sound Effect Logic ---
         const clickSound = document.getElementById('click-sound');
-        // This includes all buttons on the page now, even the new ones
         document.querySelectorAll('.mc-button, .close-button').forEach(button => {
             button.addEventListener('mousedown', () => {
-                clickSound.currentTime = 0; // Rewind to the start
-                clickSound.volume = 0.5; // Lower volume a bit
+                clickSound.currentTime = 0;
+                clickSound.volume = 0.5;
                 clickSound.play();
             });
         });
         
-        // --- NEW: Copy IP Button Logic ---
+        // --- Copy IP Button Logic ---
         const copyIpBtn = document.getElementById('copy-ip-btn');
         const serverIP = 'play.eldoriaa.com'; // <-- IMPORTANT: SET YOUR SERVER IP HERE
 
