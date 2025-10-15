@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const webhookURL = process.env.DISCORD_WEBHOOK_URL; // Secure webhook from environment
+    const webhookURL = "https://discord.com/api/webhooks/1182915455183233044/revXXoJdQMLH3CxnKfIpn_LkYeFM4sshMyxruRO8W9qbzB9vrHd9FA796zlT-bARJWES"; // Secure webhook from environment
     if (!webhookURL) {
       return res.status(500).json({ message: "Webhook URL not configured." });
     }
