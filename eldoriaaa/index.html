@@ -95,7 +95,7 @@
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
-            padding-top: 20px; /* Adjusted padding for mobile */
+            padding-top: 20px;
         }
         
         /* Modal Content - Minecraft UI Panel */
@@ -118,116 +118,76 @@
         }
 
         .close-button {
-            color: #E0E0E0;
-            background-color: #C23333;
-            border: 3px solid #373737;
+            color: #E0E0E0; background-color: #C23333; border: 3px solid #373737;
             box-shadow: inset -2px -2px 0px 0px #8B2424, inset 2px 2px 0px 0px #E06464;
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            width: 30px;
-            height: 30px;
-            line-height: 28px;
-            text-align: center;
+            position: absolute; top: 10px; right: 15px; font-size: 28px; font-weight: bold;
+            width: 30px; height: 30px; line-height: 28px; text-align: center;
         }
 
-        .close-button:hover,
-        .close-button:focus {
-            color: #FFF;
-            text-decoration: none;
-            cursor: pointer;
+        .close-button:hover, .close-button:focus {
+            color: #FFF; text-decoration: none; cursor: pointer;
         }
         
         /* --- Form Elements --- */
         #whitelist-form label {
-            display: block;
-            margin: 15px 0 5px 0;
-            color: #3E3E3E;
-            font-size: 0.9em;
-            text-shadow: none;
+            display: block; margin: 15px 0 5px 0; color: #3E3E3E;
+            font-size: 0.9em; text-shadow: none;
         }
 
-        #whitelist-form input[type="text"],
-        #whitelist-form textarea {
-            width: calc(100% - 28px); /* 100% - padding - border */
-            padding: 10px;
-            font-family: 'Press Start 2P', cursive;
-            background-color: #8B8B8B;
-            border: 4px solid #373737;
-            box-shadow: inset 2px 2px 0px #585858;
-            color: #FFFFFF;
-            font-size: 0.8em;
+        #whitelist-form input[type="text"], #whitelist-form textarea {
+            width: calc(100% - 28px); padding: 10px; font-family: 'Press Start 2P', cursive;
+            background-color: #8B8B8B; border: 4px solid #373737;
+            box-shadow: inset 2px 2px 0px #585858; color: #FFFFFF; font-size: 0.8em;
         }
         
-        #whitelist-form textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
+        #whitelist-form textarea { min-height: 80px; resize: vertical; }
         
-        #whitelist-form input[type="text"]:focus,
-        #whitelist-form textarea:focus {
-            outline: none;
-            border-color: #FFAA00;
+        #whitelist-form input[type="text"]:focus, #whitelist-form textarea:focus {
+            outline: none; border-color: #FFAA00;
         }
 
         /* Custom Radio Buttons */
-        .radio-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            border: 4px solid #8B8B8B;
-            background-color: #A0A0A0;
-            padding: 10px;
-        }
-        .radio-group input[type="radio"] {
-            display: none; /* Hide the default radio button */
-        }
+        .radio-group { display: flex; flex-wrap: wrap; gap: 10px; border: 4px solid #8B8B8B; background-color: #A0A0A0; padding: 10px; }
+        .radio-group input[type="radio"] { display: none; }
         .radio-group label {
-            margin: 0;
-            padding: 10px;
-            cursor: pointer;
-            border: 3px solid #585858;
-            background-color: #7D7D7D;
-            color: #E0E0E0;
-            flex-grow: 1;
-            text-align: center;
-            font-size: 0.8em;
+            margin: 0; padding: 10px; cursor: pointer; border: 3px solid #585858; background-color: #7D7D7D;
+            color: #E0E0E0; flex-grow: 1; text-align: center; font-size: 0.8em;
             box-shadow: inset -2px -2px 0px 0px #585858, inset 2px 2px 0px 0px #A0A0A0;
         }
         .radio-group input[type="radio"]:checked + label {
-            background-color: #58A758; /* Green for selected */
-            border-color: #346434;
+            background-color: #58A758; border-color: #346434;
             box-shadow: inset -2px -2px 0px 0px #346434, inset 2px 2px 0px 0px #88D988;
+        }
+
+        /* --- NEW: CUSTOM FORM MESSAGE STYLES --- */
+        .form-message {
+            display: none; /* Hidden by default */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 3px solid #373737;
+            font-size: 0.8em;
+            text-shadow: 1px 1px #3E3E3E;
+            text-align: center;
+        }
+        .success-message {
+            background-color: #58A758;
+            box-shadow: inset -2px -2px 0px 0px #346434, inset 2px 2px 0px 0px #88D988;
+            color: #FFFFFF;
+        }
+        .error-message {
+            background-color: #C23333;
+            box-shadow: inset -2px -2px 0px 0px #8B2424, inset 2px 2px 0px 0px #E06464;
+            color: #FFFFFF;
         }
 
         /* --- Mobile Friendly Adjustments --- */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2em;
-            }
-            h2 {
-                font-size: 1.5em;
-            }
-            p {
-                font-size: 0.9em;
-            }
-            .button-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            .mc-button {
-                font-size: 1em;
-                width: 90%;
-                max-width: 350px;
-            }
-            .modal-content {
-                width: 95%;
-                padding: 20px 15px;
-                margin: 20px auto;
-            }
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.5em; }
+            p { font-size: 0.9em; }
+            .button-container { flex-direction: column; align-items: center; gap: 15px; }
+            .mc-button { font-size: 1em; width: 90%; max-width: 350px; }
+            .modal-content { width: 95%; padding: 20px 15px; margin: 20px auto; }
         }
     </style>
 </head>
@@ -255,24 +215,18 @@
 
                 <label>What type of a Player Are you? *</label>
                 <div class="radio-group">
-                    <input type="radio" id="player-builder" name="player-type" value="Builder" required>
-                    <label for="player-builder">Builder</label>
-
-                    <input type="radio" id="player-redstoner" name="player-type" value="Redstoner">
-                    <label for="player-redstoner">Redstoner</label>
-
-                    <input type="radio" id="player-explorer" name="player-type" value="Explorer">
-                    <label for="player-explorer">Explorer</label>
-
-                    <input type="radio" id="player-mix" name="player-type" value="A Lil Bit of this, A Lil Bit of that">
-                    <label for="player-mix">Mix</label>
-
-                    <input type="radio" id="player-pvp" name="player-type" value="PvP">
-                    <label for="player-pvp">PvP</label>
+                    <input type="radio" id="player-builder" name="player-type" value="Builder" required><label for="player-builder">Builder</label>
+                    <input type="radio" id="player-redstoner" name="player-type" value="Redstoner"><label for="player-redstoner">Redstoner</label>
+                    <input type="radio" id="player-explorer" name="player-type" value="Explorer"><label for="player-explorer">Explorer</label>
+                    <input type="radio" id="player-mix" name="player-type" value="A Lil Bit of this, A Lil Bit of that"><label for="player-mix">Mix</label>
+                    <input type="radio" id="player-pvp" name="player-type" value="PvP"><label for="player-pvp">PvP</label>
                 </div>
 
                 <label for="mc-username">What's your Minecraft Username? *</label>
                 <input type="text" id="mc-username" name="mc-username" required>
+                
+                <label for="discord-id">What is your Discord User ID? *</label>
+                <input type="text" id="discord-id" name="discord-id" placeholder="e.g. 1201857644176871484" required>
 
                 <label for="build-project">What's a decent build project you've made? *</label>
                 <textarea id="build-project" name="build-project" required></textarea>
@@ -283,44 +237,44 @@
                 <label for="timezone">What is Your time zone in GMT? (e.g., GMT+5:30) *</label>
                 <input type="text" id="timezone" name="timezone" required>
 
-                <button type="submit" class="mc-button" style="width: 100%; margin-top: 25px;">Submit Application</button>
+                <div id="form-message" class="form-message"></div>
+
+                <button type="submit" class="mc-button" style="width: 100%; margin-top: 10px;">Submit Application</button>
             </form>
         </div>
     </div>
 
-<script>
-        // --- IMPORTANT: PASTE YOUR DISCORD WEBHOOK URL HERE ---
-        const webhookURL = "https://discord.com/api/webhooks/1182915455183233044/revXXoJdQMLH3CxnKfIpn_LkYeFM4sshMyxruRO8W9qbzB9vrHd9FA796zlT-bARJWES";
+    <script>
+        const webhookURL = "YOUR_WEBHOOK_URL_HERE";
 
-        // Get modal elements
         const modal = document.getElementById("application-modal");
         const openBtn = document.getElementById("open-modal-btn");
         const closeBtn = document.querySelector(".close-button");
         const form = document.getElementById("whitelist-form");
+        const messageEl = document.getElementById("form-message"); // NEW
 
-        // Modal open/close logic
-        openBtn.onclick = function() {
-            modal.style.display = "block";
-        }
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-        }
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+        openBtn.onclick = function() { modal.style.display = "block"; }
+        closeBtn.onclick = function() { modal.style.display = "none"; }
+        window.onclick = function(event) { if (event.target == modal) { modal.style.display = "none"; } }
         
-        // --- NEW ASYNC FUNCTION TO GET UUID ---
+        // --- NEW: CUSTOM MESSAGE FUNCTION ---
+        function showFormMessage(message, type) {
+            messageEl.textContent = message;
+            messageEl.className = 'form-message'; // Reset classes
+            messageEl.classList.add(type === 'success' ? 'success-message' : 'error-message');
+            messageEl.style.display = 'block';
+
+            // Hide the message after 5 seconds
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 5000);
+        }
+
         async function getUUID(username) {
             try {
-                // Use a CORS proxy if running locally, but Vercel should be fine.
                 const response = await fetch(`https://api.mojang.com/users/profiles/minecraft/${username}`);
-                if (!response.ok) {
-                    return "Username not found";
-                }
+                if (!response.ok) return "Username not found";
                 const data = await response.json();
-                // Format the UUID with hyphens
                 return data.id.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, "$1-$2-$3-$4-$5");
             } catch (error) {
                 console.error("Failed to fetch UUID:", error);
@@ -328,33 +282,35 @@
             }
         }
 
-        // --- UPDATED FORM SUBMISSION LOGIC ---
-        form.addEventListener("submit", async function(event) { // Function is now async
-            event.preventDefault(); // Prevent default page reload
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const submitButton = form.querySelector('button[type="submit"]');
 
             if (webhookURL === "YOUR_WEBHOOK_URL_HERE" || webhookURL === "") {
-                alert("ERROR: The Webhook URL has not been set in the code!");
+                showFormMessage("ERROR: The Webhook URL has not been set by the admin!", "error"); // REPLACED ALERT
                 return;
             }
 
-            const submitButton = form.querySelector('button[type="submit"]');
             submitButton.textContent = "Sending...";
             submitButton.disabled = true;
-
-            // Get form data
+            
             const formData = new FormData(form);
             const username = formData.get('mc-username');
             const discordId = formData.get('discord-id');
-
-            // Fetch the UUID (await is used because getUUID is async)
             const uuid = await getUUID(username);
 
-            // Build the new description string
+            if (uuid === "Username not found") {
+                showFormMessage(`Minecraft username "${username}" not found. Please check spelling.`, "error"); // REPLACED ALERT
+                submitButton.textContent = "Submit Application";
+                submitButton.disabled = false;
+                return;
+            }
+
             const description = `
 <:user:1201857644176871484> **USERNAME:** \`${username}\`
 ⭐ **UUID:** \`${uuid}\`
 
-\`[01]\` **What is your Discord User ID?**
+\`[01]\` **Discord User ID:**
 > <@${discordId}>
 
 \`[02]\` **How long have you been playing Minecraft?**
@@ -373,51 +329,42 @@
 > ${formData.get('timezone') || "Not answered"}
             `.trim();
 
-            // Construct the Discord embed with the new description format
             const embed = {
-                color: 5814783, // A nice Minecraft blue color
-                author: {
-                    name: `New Application from ${username}`,
-                    icon_url: `https://minotar.net/avatar/${username}/64.png`
-                },
-                thumbnail: {
-                    url: `https://minotar.net/helm/${username}/128.png` // Skin head for thumbnail
-                },
-                description: description, // Use the new description instead of fields
+                color: 5814783,
+                author: { name: `New Application from ${username}`, icon_url: `https://minotar.net/avatar/${username}/64.png` },
+                thumbnail: { url: `https://minotar.net/helm/${username}/128.png` },
+                description: description,
                 timestamp: new Date().toISOString(),
-                footer: {
-                    text: "Eldoriaa Whitelist Bot"
-                }
+                footer: { text: "Eldoriaa Whitelist Bot" }
             };
 
-            // Send data to Discord webhook (this part remains the same)
             fetch(webhookURL, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: "Whitelist Applications",
-                    avatar_url: "https://i.imgur.com/kPMgS1g.png",
-                    embeds: [embed]
-                })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: "Whitelist Applications", avatar_url: "https://i.imgur.com/kPMgS1g.png", embeds: [embed] })
             })
             .then(response => {
                 if (response.ok) {
-                    alert("Application sent successfully! We will get back to you soon.");
-                    form.reset();
-                    modal.style.display = "none";
+                    showFormMessage("Application sent successfully!", "success"); // REPLACED ALERT
+                    // Wait 2 seconds for user to read message, then close modal
+                    setTimeout(() => {
+                        form.reset();
+                        modal.style.display = "none";
+                    }, 2000);
                 } else {
-                    alert(`Failed to send application. Server responded with status: ${response.status}. Please try again later.`);
+                    showFormMessage(`Error: Server responded with status ${response.status}. Try again.`, "error"); // REPLACED ALERT
                 }
             })
             .catch(error => {
                 console.error("Error:", error);
-                alert("An error occurred. Please check the console for details.");
+                showFormMessage("An unknown error occurred. Please try again later.", "error"); // REPLACED ALERT
             })
             .finally(() => {
-                submitButton.textContent = "Submit Application";
-                submitButton.disabled = false;
+                // Re-enable button unless it was a success
+                if (messageEl.classList.contains('error-message')) {
+                    submitButton.textContent = "Submit Application";
+                    submitButton.disabled = false;
+                }
             });
         });
     </script>
