@@ -288,7 +288,7 @@
         </div>
     </div>
 
-    <script>
+<script>
         // --- IMPORTANT: PASTE YOUR DISCORD WEBHOOK URL HERE ---
         const webhookURL = "https://discord.com/api/webhooks/1182915455183233044/revXXoJdQMLH3CxnKfIpn_LkYeFM4sshMyxruRO8W9qbzB9vrHd9FA796zlT-bARJWES";
 
@@ -310,6 +310,7 @@
                 modal.style.display = "none";
             }
         }
+        
         // --- NEW ASYNC FUNCTION TO GET UUID ---
         async function getUUID(username) {
             try {
@@ -326,11 +327,12 @@
                 return "Could not fetch UUID";
             }
         }
-        // Form submission logic
-        form.addEventListener("submit", function(event) {
+
+        // --- UPDATED FORM SUBMISSION LOGIC ---
+        form.addEventListener("submit", async function(event) { // Function is now async
             event.preventDefault(); // Prevent default page reload
 
-            if (webhookURL === "Y" || webhookURL === "") {
+            if (webhookURL === "YOUR_WEBHOOK_URL_HERE" || webhookURL === "") {
                 alert("ERROR: The Webhook URL has not been set in the code!");
                 return;
             }
@@ -339,7 +341,7 @@
             submitButton.textContent = "Sending...";
             submitButton.disabled = true;
 
- // Get form data
+            // Get form data
             const formData = new FormData(form);
             const username = formData.get('mc-username');
             const discordId = formData.get('discord-id');
@@ -388,15 +390,15 @@
                 }
             };
 
-            // Send data to Discord webhook
+            // Send data to Discord webhook (this part remains the same)
             fetch(webhookURL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    username: "Whitelist Applications", // This is the name the bot will have in Discord
-                    avatar_url: "https://i.imgur.com/kPMgS1g.png", // A Minecraft grass block icon
+                    username: "Whitelist Applications",
+                    avatar_url: "https://i.imgur.com/kPMgS1g.png",
                     embeds: [embed]
                 })
             })
